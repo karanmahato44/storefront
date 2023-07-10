@@ -1,0 +1,56 @@
+# Byte-compiled / optimized files
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+
+# Python cache
+*.cache/
+*.log
+
+# Virtual environment
+venv/
+env/
+*.env
+
+# Dependency directories
+lib/
+libs/
+lib64/
+dist/
+build/
+eggs/
+parts/
+bin/
+var/
+sdist/
+develop-eggs/
+.installed.cfg
+*.egg-info/
+.installed.cfg
+
+# Database
+*.sqlite3
+*.db
+
+# Static files (usually collected by Django)
+/static/
+
+# Media files (usually user-uploaded)
+/media/
+
+# Secret keys and environment-specific settings
+.secret_key
+.localenv
+
+# IDE-specific files
+.vscode/
+.idea/
+
+# Django migration files
+**/migrations/*.py
+**/migrations/*.pyc
+**/migrations/__pycache__/
+
+# Django test database
+test_db.sqlite3
