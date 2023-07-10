@@ -3,4 +3,5 @@ from django.http import HttpResponse
 
 
 def say_hello(request):
-    return HttpResponse('hello world!')
+    nums = range(1, 11)
+    return render(request, 'playground/base.html', context={'nums': nums})
