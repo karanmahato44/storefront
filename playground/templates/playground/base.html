@@ -5,16 +5,68 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Playgroun App</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 80vw;
+    }
+
+    th,
+    td {
+      border: 1px solid black;
+      padding: 8px;
+    }
+  </style>
 </head>
 
-<body>
-  <div>
+<body class="flex justify-center items-center">
+  <!-- <div>
+    <h2 class="text-center text-4xl font-bold py-4">Store</h2>
+    <table class="border">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Title</th>
+          <th>Price</th>
+          <th>Inventory</th>
+          <th>Last Updated</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for product in products %}
+        <tr>
+          {% comment %} <td>{{ product.id }}</td>
+          <td>{{ product.title }}</td>
+          <td>{{ product.unit_price }}</td>
+          <td>{{ product.inventory }}</td>
+          <td>{{ product.last_update }}</td> {% endcomment %}
+          {% comment %} {{ product.title }} {{product.collection.title}}<br>without select_related will send a thousand queries to the db {% endcomment %}
+          {% comment %} {{ product.title }} {{ product.collection.title}}<br> {% endcomment %}
+          {% comment %} {{ product.title }} - {{ product.collection.title }}<br> {% endcomment %}
+          {% comment %} {{ product.id }} - {{ product.customer.first_name }}<br> {% endcomment %}
+
+
+
+        </tr>
+        {% endfor %}
+        {{ products }}
+      </tbody>
+    </table>
+  </div>
+   -->
+  <!-- <div>
     <ul>
-      {% for num in nums %}
-        <li>Number = {{ num }}</li>
+      {% for product in products %}
+      <li>{{ product.id }}</li>
       {% endfor %}
     </ul>
+  </div> -->
+
+  <div>
+    <span>Hello {{ name }}</span>
   </div>
 </body>
+
 
 </html>
