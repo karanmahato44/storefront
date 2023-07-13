@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    'rest_framework',
     'playground',
     'debug_toolbar',
     'store',
@@ -86,7 +86,7 @@ WSGI_APPLICATION = 'storefront.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'storefront',
+        'NAME': 'storefront2',
         'HOST': 'localhost',
         'USER': 'kyto',
         'PASSWORD': 'nice'
@@ -141,3 +141,8 @@ INTERNAL_IPS = [
     "127.0.0.1",
     # ...
 ]
+
+
+REST_FRAMEWORK = {
+    'COERCE_DECIMAL_TO_STRING': False
+}
