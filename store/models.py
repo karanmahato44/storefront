@@ -40,9 +40,10 @@ class Product(models.Model):
         validators=[MinValueValidator(1)])
 
     last_update = models.DateTimeField(auto_now=True)
-    collection = models.ForeignKey(Collection, on_delete=models.PROTECT)
+    collection = models.ForeignKey(
+        Collection, on_delete=models.PROTECT, related_name='products')
     # collection = models.ForeignKey('Collection', on_delete=models.CASCADE) - pass a string model if the model to foreign key to is below/parent class can't be on top
-    # product_set - default reverse relation but we can use sht like 'products' with related_name
+    # product_set - default reverse relation but we can use sth like 'products' with related_name
     promotions = models.ManyToManyField(Promotion, blank=True)
 
     def __str__(self):
@@ -98,7 +99,8 @@ class Order(models.Model):
 
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.PROTECT)
-    product = models.ForeignKey(Product, on_delete=models.PROTECT)
+    product = models.ForeignKey(
+        Product, on_delete=models.PROTECT, related_name='orderitems')
     quantity = models.PositiveSmallIntegerField()
     unit_price = models.DecimalField(max_digits=19, decimal_places=2)
 

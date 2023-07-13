@@ -1,19 +1,22 @@
 from decimal import Decimal
 from rest_framework import serializers
 
-from store.models import Collection, Product
+from store.models import Collection, Customer, Product
 
 
 class CollectionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Collection
-        fields = ['id', 'title']
+        fields = ['id', 'title', 'products_count']
+
+    products_count = serializers.IntegerField()
 
 
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        fields = ['id', 'title', 'unit_price', 'price_with_tax', 'collection']
+        fields = ['id', 'title', 'description', 'slug', 'inventory',
+                  'unit_price', 'price_with_tax', 'collection']
         # fields = '__all__'
 
     # id = serializers.IntegerField()
@@ -32,3 +35,9 @@ class ProductSerializer(serializers.ModelSerializer):
     def calculate_tax(self, product: Product):
         tax = product.unit_price * Decimal(1.1)
         return round(tax, 2)
+
+
+class CustomerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Customer
+        fields = ['first_name', 'last_name', 'email']
