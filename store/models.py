@@ -1,5 +1,7 @@
 from django.db import models
-from django.core.validators import MinValueValidator
+from django.core.validators import MinValueValidator, RegexValidator
+from django.core.exceptions import ValidationError
+from django.utils import timezone
 
 
 class Promotion(models.Model):
@@ -39,16 +41,21 @@ class Product(models.Model):
 
 
 class Customer(models.Model):
+    def validate_past_date(value):
+        if value > timezone.localdate():
+            raise ValidationError("Birth date cannot be in the future.")
+
     MEMBERSHIP_GOLD = 'G'
     MEMBERSHIP_SILVER = 'S'
     MEMBERSHIP_BRONZE = 'B'
 
     MEMBERSHIP_CHOICES = [(MEMBERSHIP_GOLD, 'Gold'), (MEMBERSHIP_SILVER, 'Silver'), (MEMBERSHIP_BRONZE, 'Bronze')]
-    first_name = models.CharField(max_length=225)
-    last_name = models.CharField(max_length=225)
+
+    first_name = models.CharField(max_length=225, validators=[RegexValidator(r'^[a-zA-Z\s]*$', 'Only letters and spaces are allowed.')])
+    last_name = models.CharField(max_length=225, validators=[RegexValidator(r'^[a-zA-Z\s]*$', 'Only letters and spaces are allowed.')])
     email = models.EmailField(unique=True)
-    phone = models.CharField(max_length=20)
-    birth_date = models.DateField(null=True)
+    phone = models.CharField(max_length=20, validators=[RegexValidator(r'^\+?\d{1,3}[-.\s]?\d{1,14}$', 'Enter a valid phone number.')])
+    birth_date = models.DateField(null=True, validators=[validate_past_date])
     membership = models.CharField(max_length=1, choices=MEMBERSHIP_CHOICES, default=MEMBERSHIP_BRONZE)
 
     def __str__(self):
@@ -64,6 +71,7 @@ class Order(models.Model):
     PAYMENT_STATUS_FAILED = 'F'
 
     PAYMENT_STAUS_CHOICES = [(PAYMENT_STATUS_PENDING, 'Pending'), (PAYMENT_STATUS_COMPLETE, 'Complete'), (PAYMENT_STATUS_FAILED, 'Failed')]
+
     payment_status = models.CharField(max_length=1, choices=PAYMENT_STAUS_CHOICES, default=PAYMENT_STATUS_PENDING)
     placed_at = models.DateTimeField(auto_now_add=True)
     customer = models.ForeignKey(Customer, on_delete=models.PROTECT)

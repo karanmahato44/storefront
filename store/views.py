@@ -88,10 +88,3 @@ def customer_list(request):
     queryset = Customer.objects.all()
     serializer = CustomerSerializer(queryset, many=True)
     return Response(serializer.data)
-
-
-@api_view()
-def customer_detail(request, id):
-    customer = get_object_or_404(Customer, pk=id)
-    serializer = CustomerSerializer(customer)
-    return Response(serializer.data)
