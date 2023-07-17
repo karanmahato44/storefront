@@ -11,7 +11,7 @@ from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIV
 
 
 class ProductList(ListCreateAPIView):
-    queryset = Product.objects.select_related('collection').all()[:10]
+    queryset = Product.objects.all()[:10]
     serializer_class = ProductSerializer
 
     # def get_queryset(self):
