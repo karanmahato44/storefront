@@ -1,4 +1,5 @@
-from store.filters import ProductFilter
+from .pagination import DefaultPagination
+from .filters import ProductFilter
 from .models import Collection, Customer, Product, OrderItem, Review
 from .serializers import CollectionSerializer, ProductSerializer, CustomerSerializer, ReviewSerializer
 from django.db.models.aggregates import Count
@@ -8,6 +9,7 @@ from rest_framework import status
 from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
 from rest_framework.filters import SearchFilter, OrderingFilter
 from django_filters.rest_framework import DjangoFilterBackend
+# from rest_framework.pagination import PageNumberPagination
 
 
 class ProductViewSet(ModelViewSet):
@@ -18,6 +20,7 @@ class ProductViewSet(ModelViewSet):
     search_fields = ['title', 'description']
     ordering_fields = ['unit_price', 'last_update']
     filterset_class = ProductFilter
+    pagination_class = DefaultPagination
 
     # def get_queryset(self):
     #     queryset = Product.objects.all()
